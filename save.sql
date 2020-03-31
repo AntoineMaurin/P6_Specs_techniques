@@ -33,7 +33,7 @@ CREATE TABLE `adresse` (
   `pays` varchar(60) NOT NULL,
   `commentaire` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `adresse` (
 
 LOCK TABLES `adresse` WRITE;
 /*!40000 ALTER TABLE `adresse` DISABLE KEYS */;
-INSERT INTO `adresse` VALUES (1,'1','rue','Chantemerle','Poitiers',86000,'villa','France',''),(2,'14 BIS','rue','Gilbert Landry','Mirebeau',86110,'villa','France',''),(3,'9','avenue','Victor Hugo','Bordeaux',33000,'R├®sidence','France','Appartement 6'),(4,'43','Boulevard','Foulques Nerra','Toulouse',31120,'Commerce','France',''),(5,'22','place','R├®publique','Toulouse',31200,'Commerce','France','');
+INSERT INTO `adresse` VALUES (1,'1','rue','Chantemerle','Poitiers',86000,'villa','France',''),(2,'14 BIS','rue','Gilbert Landry','Mirebeau',86110,'villa','France',''),(3,'9','avenue','Victor Hugo','Bordeaux',33000,'R├®sidence','France','Appartement 6'),(4,'43','Boulevard','Foulques Nerra','Toulouse',31120,'villa','France',''),(5,'22','place','R├®publique','Toulouse',31200,'Commerce','France',''),(6,'16','all├®e','Henri Reneaudeau','Limoges',87000,'Commerce','France','');
 /*!40000 ALTER TABLE `adresse` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,9 +88,9 @@ CREATE TABLE `client` (
   PRIMARY KEY (`id`),
   KEY `fk_client_adresse` (`id_adresse`),
   KEY `fk_client_compte` (`id_compte`),
-  CONSTRAINT `fk_client_adresse` FOREIGN KEY (`id_adresse`) REFERENCES `client` (`id`),
+  CONSTRAINT `fk_client_adresse` FOREIGN KEY (`id_adresse`) REFERENCES `adresse` (`id`),
   CONSTRAINT `fk_client_compte` FOREIGN KEY (`id_compte`) REFERENCES `compte` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -99,7 +99,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'Durand','0758412475',1,1),(2,'Le Goff','0641757524',2,2),(3,'Jardinier','0555791245',3,3);
+INSERT INTO `client` VALUES (1,'Durand','0758412475',1,1),(2,'Le Goff','0641757524',2,2),(3,'Jardinier','0555791245',3,3),(4,'Legrand','0575794416',4,7);
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -129,7 +129,7 @@ CREATE TABLE `commande` (
   CONSTRAINT `fk_commande_client` FOREIGN KEY (`id_client`) REFERENCES `client` (`id`),
   CONSTRAINT `fk_commande_paiement` FOREIGN KEY (`id_paiement`) REFERENCES `paiement` (`id`),
   CONSTRAINT `fk_commande_pizzeria` FOREIGN KEY (`id_pizzeria`) REFERENCES `pizzeria` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -138,7 +138,7 @@ CREATE TABLE `commande` (
 
 LOCK TABLES `commande` WRITE;
 /*!40000 ALTER TABLE `commande` DISABLE KEYS */;
-INSERT INTO `commande` VALUES (1,'2020-01-01 10:10:10','en attente de pr├®paration',0,'sur place',1,1,1,1),(2,'2020-03-05 20:54:37','en attente de livraison',1,'├á emporter',2,2,1,2),(3,'2019-12-12 20:54:37','d├®livr├®e',1,'├á emporter',4,3,2,3);
+INSERT INTO `commande` VALUES (1,'2020-01-01 10:10:10','en attente de pr├®paration',0,'sur place',1,1,1,1),(2,'2020-03-05 20:54:37','en attente de livraison',1,'├á emporter',2,2,1,2),(3,'2019-12-12 20:54:37','d├®livr├®e',1,'├á emporter',3,3,2,3),(4,'2020-02-03 19:21:12','d├®livr├®e',1,'├á emporter',4,4,2,4);
 /*!40000 ALTER TABLE `commande` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -181,7 +181,7 @@ CREATE TABLE `compte` (
   `email` varchar(255) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `compte` (
 
 LOCK TABLES `compte` WRITE;
 /*!40000 ALTER TABLE `compte` DISABLE KEYS */;
-INSERT INTO `compte` VALUES (1,'durand.patrick@live.fr','bestpassword'),(2,'vincent.legoff@gmail.com','thinkimsafewiththat'),(3,'nelly.jardinier@laposte.net','nelly24700'),(4,'pablo.rossi@live.fr','KJ65SD4F4SDF1S'),(5,'martin.petit@hotmail.com','84SDF5WDFSD4DF'),(6,'tony.leroy@gmail.com','98F7D22F1SDF4G');
+INSERT INTO `compte` VALUES (1,'durand.patrick@live.fr','bestpassword'),(2,'vincent.legoff@gmail.com','thinkimsafewiththat'),(3,'nelly.jardinier@laposte.net','nelly24700'),(4,'pablo.rossi@live.fr','KJ65SD4F4SDF1S'),(5,'martin.petit@hotmail.com','84SDF5WDFSD4DF'),(6,'tony.leroy@gmail.com','98F7D22F1SDF4G'),(7,'martin.legrand@gmail.com','22F1SDF1DFS65');
 /*!40000 ALTER TABLE `compte` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -204,6 +204,7 @@ DROP TABLE IF EXISTS `ingredient`;
 CREATE TABLE `ingredient` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nom` varchar(80) NOT NULL,
+  `unite_mesure` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -214,7 +215,7 @@ CREATE TABLE `ingredient` (
 
 LOCK TABLES `ingredient` WRITE;
 /*!40000 ALTER TABLE `ingredient` DISABLE KEYS */;
-INSERT INTO `ingredient` VALUES (1,'sauce tomate'),(2,'jambon'),(3,'gruy├¿re'),(4,'mozzarella'),(5,'cr├¿me fraiche'),(6,'olvie noire'),(7,'olvie verte'),(8,'oeuf'),(9,'chorizo'),(10,'saumon fum├®'),(11,'champignons de paris'),(12,'th├® glac├®'),(13,'coca'),(14,'cappuccino');
+INSERT INTO `ingredient` VALUES (1,'sauce tomate','litre'),(2,'jambon','kilo'),(3,'gruy├¿re','kilo'),(4,'mozzarella','kilo'),(5,'cr├¿me fraiche','kilo'),(6,'olvie noire','kilo'),(7,'olvie verte','kilo'),(8,'oeuf','nombre'),(9,'chorizo','kilo'),(10,'saumon fum├®','kilo'),(11,'champignons de paris','kilo'),(12,'th├® glac├®','litre'),(13,'coca','litre'),(14,'cappuccino','litre');
 /*!40000 ALTER TABLE `ingredient` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,7 +270,7 @@ CREATE TABLE `paiement` (
 
 LOCK TABLES `paiement` WRITE;
 /*!40000 ALTER TABLE `paiement` DISABLE KEYS */;
-INSERT INTO `paiement` VALUES (1,1448,'carte'),(2,999,'esp├¿ces'),(3,2250,'carte'),(4,5645,'ch├¿que');
+INSERT INTO `paiement` VALUES (1,1448,'carte'),(2,999,'esp├¿ces'),(3,5645,'ch├¿que'),(4,2500,'carte');
 /*!40000 ALTER TABLE `paiement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -348,7 +349,7 @@ CREATE TABLE `produits_commandes` (
 
 LOCK TABLES `produits_commandes` WRITE;
 /*!40000 ALTER TABLE `produits_commandes` DISABLE KEYS */;
-INSERT INTO `produits_commandes` VALUES (1,4,1),(1,7,1),(2,3,1),(3,2,2),(3,4,2),(3,5,2),(3,7,1);
+INSERT INTO `produits_commandes` VALUES (1,4,1),(1,7,1),(2,3,1),(3,2,2),(3,4,2),(3,5,2),(3,7,1),(4,2,2),(4,7,1);
 /*!40000 ALTER TABLE `produits_commandes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -364,9 +365,12 @@ CREATE TABLE `staff` (
   `nom` varchar(60) NOT NULL,
   `type` varchar(30) NOT NULL,
   `id_compte` int(10) unsigned NOT NULL,
+  `id_pizzeria` int(10) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_staff_compte` (`id_compte`),
-  CONSTRAINT `fk_staff_compte` FOREIGN KEY (`id_compte`) REFERENCES `compte` (`id`)
+  KEY `fk_staff_pizzeria` (`id_pizzeria`),
+  CONSTRAINT `fk_staff_compte` FOREIGN KEY (`id_compte`) REFERENCES `compte` (`id`),
+  CONSTRAINT `fk_staff_pizzeria` FOREIGN KEY (`id_pizzeria`) REFERENCES `pizzeria` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -376,7 +380,7 @@ CREATE TABLE `staff` (
 
 LOCK TABLES `staff` WRITE;
 /*!40000 ALTER TABLE `staff` DISABLE KEYS */;
-INSERT INTO `staff` VALUES (1,'Rossi','Pizzaiolo',4),(2,'Petit','Responsable',5),(3,'Leroy','Livreur',6);
+INSERT INTO `staff` VALUES (1,'Rossi','Pizzaiolo',4,1),(2,'Petit','Responsable',5,1),(3,'Leroy','Livreur',6,2);
 /*!40000 ALTER TABLE `staff` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -389,4 +393,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-03-30 14:09:56
+-- Dump completed on 2020-03-31 11:49:38

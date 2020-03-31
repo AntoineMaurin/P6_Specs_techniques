@@ -8,16 +8,6 @@ CREATE TABLE IF NOT EXISTS Compte (
     mot_de_passe VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
-CREATE TABLE IF NOT EXISTS Staff (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nom VARCHAR(60) NOT NULL,
-    type VARCHAR(30) NOT NULL,
-    id_compte INT UNSIGNED NOT NULL,
-    PRIMARY KEY (id)
-);
-ALTER TABLE Staff
-ADD CONSTRAINT fk_staff_compte FOREIGN KEY (id_compte)
-REFERENCES Compte(id);
 
 CREATE TABLE IF NOT EXISTS Adresse (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -40,6 +30,21 @@ ALTER TABLE Pizzeria
 ADD CONSTRAINT fk_pizzeria_adresse FOREIGN KEY (id_adresse)
 REFERENCES Adresse(id);
 
+CREATE TABLE IF NOT EXISTS Staff (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    nom VARCHAR(60) NOT NULL,
+    type VARCHAR(30) NOT NULL,
+    id_compte INT UNSIGNED NOT NULL,
+    id_pizzeria INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id)
+);
+ALTER TABLE Staff
+ADD CONSTRAINT fk_staff_compte FOREIGN KEY (id_compte)
+REFERENCES Compte(id);
+ALTER TABLE Staff
+ADD CONSTRAINT fk_staff_pizzeria FOREIGN KEY (id_pizzeria)
+REFERENCES Pizzeria(id);
+
 CREATE TABLE IF NOT EXISTS Catalogue (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     id_pizzeria INT UNSIGNED NOT NULL,
@@ -59,7 +64,7 @@ CREATE TABLE IF NOT EXISTS Client (
 );
 ALTER TABLE Client
 ADD CONSTRAINT fk_client_adresse FOREIGN KEY (id_adresse)
-REFERENCES Client(id);
+REFERENCES Adresse(id);
 ALTER TABLE Client
 ADD CONSTRAINT fk_client_compte FOREIGN KEY (id_compte)
 REFERENCES Compte(id);
@@ -102,6 +107,7 @@ REFERENCES Adresse(id);
 CREATE TABLE IF NOT EXISTS Ingredient (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nom VARCHAR(80) NOT NULL,
+    unite_mesure VARCHAR(30),
     PRIMARY KEY (id)
 );
 CREATE TABLE IF NOT EXISTS Produit (
