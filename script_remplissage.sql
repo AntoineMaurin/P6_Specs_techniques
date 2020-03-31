@@ -1,20 +1,20 @@
 USE ocpizza;
 
-INSERT INTO Ingredient (nom) VALUES
-('sauce tomate'),
-('jambon'),
-('gruyère'),
-('mozzarella'),
-('crème fraiche'),
-('olvie noire'),
-('olvie verte'),
-('oeuf'),
-('chorizo'),
-('saumon fumé'),
-('champignons de paris'),
-('thé glacé'),
-('coca'),
-('cappuccino');
+INSERT INTO Ingredient (nom, unite_mesure) VALUES
+('sauce tomate', 'litre'),
+('jambon', 'kilo'),
+('gruyère', 'kilo'),
+('mozzarella', 'kilo'),
+('crème fraiche', 'kilo'),
+('olvie noire', 'kilo'),
+('olvie verte', 'kilo'),
+('oeuf', 'nombre'),
+('chorizo', 'kilo'),
+('saumon fumé', 'kilo'),
+('champignons de paris', 'kilo'),
+('thé glacé', 'litre'),
+('coca', 'litre'),
+('cappuccino', 'litre');
 
 INSERT INTO Produit (nom, prix) VALUES
 ('Calzone', 1050),
@@ -46,15 +46,16 @@ INSERT INTO Composition_produit (id_produit , id_ingredient) VALUES
 INSERT INTO Paiement (montant, moyen_paiement) VALUES
 (1448, 'carte'),
 (999, 'espèces'),
-(2250, 'carte'),
-(5645, 'chèque');
+(5645, 'chèque'),
+(2500, 'carte');
 
 INSERT INTO Adresse (numero_rue, type_voie, nom_rue, ville, code_postal, type_batiment, pays, commentaire) VALUES
 ('1', 'rue', 'Chantemerle', 'Poitiers', 86000, 'villa', 'France', ''),
 ('14 BIS', 'rue', 'Gilbert Landry', 'Mirebeau', 86110, 'villa', 'France', ''),
 ('9', 'avenue', 'Victor Hugo', 'Bordeaux', 33000, 'Résidence', 'France', 'Appartement 6'),
-('43', 'Boulevard', 'Foulques Nerra', 'Toulouse', 31120, 'Commerce', 'France', ''),
-('22', 'place', 'République', 'Toulouse', 31200, 'Commerce', 'France', '');
+('43', 'Boulevard', 'Foulques Nerra', 'Toulouse', 31120, 'villa', 'France', ''),
+('22', 'place', 'République', 'Toulouse', 31200, 'Commerce', 'France', ''),
+('16', 'allée', 'Henri Reneaudeau', 'Limoges', 87000, 'Commerce', 'France', '');
 
 INSERT INTO Pizzeria (id_adresse) VALUES
 (4),
@@ -66,22 +67,26 @@ INSERT INTO Compte (email, mot_de_passe) VALUES
 ('nelly.jardinier@laposte.net', 'nelly24700'),
 ('pablo.rossi@live.fr', 'KJ65SD4F4SDF1S'),
 ('martin.petit@hotmail.com', '84SDF5WDFSD4DF'),
-('tony.leroy@gmail.com', '98F7D22F1SDF4G');
+('tony.leroy@gmail.com', '98F7D22F1SDF4G'),
+('martin.legrand@gmail.com', '22F1SDF1DFS65');
 
 INSERT INTO Client (nom, numero_tel, id_adresse, id_compte) VALUES
 ('Durand', '0758412475', 1, 1),
 ('Le Goff', '0641757524', 2, 2),
-('Jardinier', '0555791245', 3, 3);
+('Jardinier', '0555791245', 3, 3),
+('Legrand', '0575794416', 4, 7);
 
-INSERT INTO Staff (nom, type, id_compte) VALUES
-('Rossi', 'Pizzaiolo', 4),
-('Petit', 'Responsable', 5),
-('Leroy', 'Livreur', 6);
+INSERT INTO Staff (nom, type, id_compte, id_pizzeria) VALUES
+('Rossi', 'Pizzaiolo', 4, 1),
+('Petit', 'Responsable', 5, 1),
+('Leroy', 'Livreur', 6, 2);
 
 INSERT INTO Commande (date_creation, statut, paiement_effectue, mode_livraison, id_paiement, id_client, id_pizzeria, id_adresse) VALUES
 ('2020-01-01 10:10:10', 'en attente de préparation', false, 'sur place', 1, 1, 1, 1),
 ('2020-03-05 20:54:37', 'en attente de livraison', true, 'à emporter', 2, 2, 1, 2),
-('2019-12-12 20:54:37', 'délivrée', true, 'à emporter', 4, 3, 2, 3);
+('2019-12-12 20:54:37', 'délivrée', true, 'à emporter', 3, 3, 2, 3),
+('2020-02-03 19:21:12', 'délivrée', true, 'à emporter', 4, 4, 2, 4);
+
 
 INSERT INTO Catalogue (id_pizzeria) VALUES
 (1),
@@ -94,7 +99,9 @@ INSERT INTO Produits_commandes (id_commande, id_produit, quantite_produit) VALUE
 (3, 2, 2),
 (3, 4, 2),
 (3, 5, 2),
-(3, 7, 1);
+(3, 7, 1),
+(4, 2, 2),
+(4, 7, 1);
 
 INSERT INTO Ligne_stock (quantite_ingredient, id_ingredient, id_pizzeria) VALUES
 -- produits réalisables : Calzonne - Reine - 2 Saumons - thé - coca
